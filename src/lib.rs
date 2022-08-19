@@ -2816,7 +2816,7 @@ impl MonitorMwaitInfo {
     /// Number of C0 sub C-states supported using MWAIT (Bits 03 - 00)
     ///
     /// # Platforms
-    /// ❌ AMD (undefined/reserved) ✅ Intel
+    /// ✅ AMD ✅ Intel
     pub fn supported_c0_states(&self) -> u16 {
         get_bits(self.edx, 0, 3) as u16
     }
@@ -2824,7 +2824,7 @@ impl MonitorMwaitInfo {
     /// Number of C1 sub C-states supported using MWAIT (Bits 07 - 04)
     ///
     /// # Platforms
-    /// ❌ AMD (undefined/reserved) ✅ Intel
+    /// ✅ AMD ✅ Intel
     pub fn supported_c1_states(&self) -> u16 {
         get_bits(self.edx, 4, 7) as u16
     }
@@ -2916,7 +2916,7 @@ impl ThermalPowerInfo {
     /// Number of Interrupt Thresholds in Digital Thermal Sensor
     ///
     /// # Platforms
-    /// ❌ AMD (undefined/reserved) ✅ Intel
+    /// ❌ AMD (reserved) ✅ Intel
     pub fn dts_irq_threshold(&self) -> u8 {
         get_bits(self.ebx, 0, 3) as u8
     }
@@ -3278,7 +3278,7 @@ impl ExtendedFeatures {
     /// Supports Enhanced REP MOVSB/STOSB if 1.
     ///
     /// # Platforms
-    /// ❌ AMD (reserved) ✅ Intel
+    /// ✅ AMD ✅ Intel
     pub fn has_rep_movsb_stosb(&self) -> bool {
         self.ebx.contains(ExtendedFeaturesEbx::REP_MOVSB_STOSB)
     }
@@ -3287,7 +3287,7 @@ impl ExtendedFeatures {
     /// manages process-context identifiers.
     ///
     /// # Platforms
-    /// ❌ AMD (reserved) ✅ Intel
+    /// ✅ AMD ✅ Intel
     pub fn has_invpcid(&self) -> bool {
         self.ebx.contains(ExtendedFeaturesEbx::INVPCID)
     }
@@ -3300,10 +3300,11 @@ impl ExtendedFeatures {
         self.ebx.contains(ExtendedFeaturesEbx::RTM)
     }
 
-    /// Supports Intel Resource Director Technology (RDT) Monitoring capability.
+    /// Supports Intel Resource Director Technology (RDT) or AMD Platform QoS
+    /// Monitoring capability.
     ///
     /// # Platforms
-    /// ❌ AMD (reserved) ✅ Intel
+    /// ❌ AMD ✅ Intel
     pub fn has_rdtm(&self) -> bool {
         self.ebx.contains(ExtendedFeaturesEbx::RDTM)
     }
@@ -3324,10 +3325,11 @@ impl ExtendedFeatures {
         self.ebx.contains(ExtendedFeaturesEbx::MPX)
     }
 
-    /// Supports Intel Resource Director Technology (RDT) Allocation capability.
+    /// Supports Intel Resource Director Technology (RDT) or AMD Platform QoS Cache
+    /// Allocation capability.
     ///
     /// # Platforms
-    /// ❌ AMD (reserved) ✅ Intel
+    /// ❌ AMD ✅ Intel
     pub fn has_rdta(&self) -> bool {
         self.ebx.contains(ExtendedFeaturesEbx::RDTA)
     }
@@ -3472,7 +3474,7 @@ impl ExtendedFeatures {
     /// Supports user-mode instruction prevention if 1.
     ///
     /// # Platforms
-    /// ❌ AMD (reserved) ✅ Intel
+    /// ❌ AMD ✅ Intel
     pub fn has_umip(&self) -> bool {
         self.ecx.contains(ExtendedFeaturesEcx::UMIP)
     }
@@ -3480,7 +3482,7 @@ impl ExtendedFeatures {
     /// Supports protection keys for user-mode pages.
     ///
     /// # Platforms
-    /// ❌ AMD (reserved) ✅ Intel
+    /// ✅ AMD ✅ Intel
     pub fn has_pku(&self) -> bool {
         self.ecx.contains(ExtendedFeaturesEcx::PKU)
     }
@@ -3489,7 +3491,7 @@ impl ExtendedFeatures {
     /// instructions.
     ///
     /// # Platforms
-    /// ❌ AMD (reserved) ✅ Intel
+    /// ✅ AMD ✅ Intel
     pub fn has_ospke(&self) -> bool {
         self.ecx.contains(ExtendedFeaturesEcx::OSPKE)
     }
